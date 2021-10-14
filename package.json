@@ -1,0 +1,33 @@
+{
+  "name": "toadbot",
+  "version": "1.5.0",
+  "description": "A simple Discord bot for my friends and I.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mcomatas/ToadBot.git"
+  },
+  "keywords": [
+    "discord",
+    "bot"
+  ],
+  "author": "Michael Comatas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mcomatas/ToadBot/issues"
+  },
+  "homepage": "https://github.com/mcomatas/ToadBot#readme",
+  "dependencies": {
+    "@discordjs/builders": "^0.6.0",
+    "@discordjs/rest": "^0.1.0-canary.0",
+    "discord-api-types": "^0.23.1",
+    "discord.js": "^13.2.0",
+    "dotenv": "^10.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.1"
+  }
+}
