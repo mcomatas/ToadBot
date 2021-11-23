@@ -1,6 +1,6 @@
 {
   "name": "toadbot",
-  "version": "1.5.0",
+  "version": "2.0.0",
   "description": "A simple Discord bot for my friends and I.",
   "main": "index.js",
   "scripts": {
