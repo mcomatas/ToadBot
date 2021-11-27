@@ -20,6 +20,8 @@ global.peachWins = 0;
 
 global.bmt = 0;
 
+global.beer = [];
+
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 	// set a new item in the collection
