@@ -16,7 +16,7 @@ module.exports = {
         {
             await interaction.reply(`Duel has started between ${interaction.user} and ${duelee}!`);
             
-            await interaction.followUp('3...');
+            /*await interaction.followUp('3...');
 
             setTimeout(function() {
                 interaction.followUp('2...');
@@ -24,7 +24,7 @@ module.exports = {
 
             setTimeout(function() {
                 interaction.followUp('1...');
-            }, 2000 );
+            }, 2000 );*/ //this sent 3 messages, I am commenting it out to make ToadBot not spam as much
 
             setTimeout(function() {
                 const rand = Math.floor(Math.random() * 2);

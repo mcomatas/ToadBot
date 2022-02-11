@@ -3,3 +3,5 @@ config.json
 randomFiller.txt
 commands/help.js
 commands/meleedoc.js
+ToadBot.zip
+database.sqlite

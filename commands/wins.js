@@ -41,7 +41,7 @@ module.exports = {
             }
             else if(value === 'P')
             {
-                await interaction.reply(`Peach currently has ${global.DKwins} wins`);
+                await interaction.reply(`Peach currently has ${global.peachWins} wins`);
             }
         }
         else if(interaction.options.getSubcommand() === 'update' )
@@ -64,9 +64,9 @@ module.exports = {
             }
             else if(value === 'P')
             {
-                await interaction.reply('Erm there was an error trying to execute this command');
-                //global.peachWins++;
-                //await interaction.reply(`Peach now has ${global.peachWins} wins`);
+                // await interaction.reply('Erm there was an error trying to execute this command');
+                global.peachWins++;
+                await interaction.reply(`Peach now has ${global.peachWins} wins`);
             }
         }
         else

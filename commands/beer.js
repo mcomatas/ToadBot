@@ -35,11 +35,28 @@ module.exports = {
         {
             const value = interaction.options.getString('input');
             global.beer.push(value);
-            await interaction.reply('The updated list of beers is:');
-            for( i = 0; i < global.beer.length; i++ )
+            
+            let beerList = "";
+                for( i = 0; i < global.beer.length; i++ )
+                {
+                    if( i === global.beer.length - 1 )
+                    {
+                        beerList = beerList + global.beer[i];
+                    }
+                    else
+                    {
+                        beerList = beerList + global.beer[i] + ", ";
+                    }
+                }
+            await interaction.reply(`The updated list of beers is:\n${beerList}`);
+            
+            
+            
+            //await interaction.reply('The updated list of beers is:');
+            /*for( i = 0; i < global.beer.length; i++ )
             {
                 interaction.followUp(`${global.beer[i]}`);
-            }
+            }*/
             // await interaction.reply('working on it');
         }
         else if(interaction.options.getSubcommand() === 'list' )
@@ -51,11 +68,25 @@ module.exports = {
             }
             else
             {
-                await interaction.reply('The current list of beers is:\n');
+                //await interaction.reply(`The current list of beers is:\n${global.beer}`);
+                let beerList = "";
                 for( i = 0; i < global.beer.length; i++ )
                 {
-                    interaction.followUp(`${global.beer[i]}`);
+                    if( i === global.beer.length - 1 )
+                    {
+                        beerList = beerList + global.beer[i];
+                    }
+                    else
+                    {
+                        beerList = beerList + global.beer[i] + ", ";
+                    }
                 }
+                
+                await interaction.reply(`The current list of beers is:\n${beerList}`);
+                /*for( i = 0; i < global.beer.length; i++ )
+                {
+                    interaction.reply(`${global.beer[i]}`);
+                }*/
             }
             // await interaction.reply('working on it');
         }

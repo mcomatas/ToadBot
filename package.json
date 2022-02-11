@@ -1,6 +1,6 @@
 {
   "name": "toadbot",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "A simple Discord bot for my friends and I.",
   "main": "index.js",
   "scripts": {
@@ -24,8 +24,10 @@
     "@discordjs/builders": "^0.6.0",
     "@discordjs/rest": "^0.1.0-canary.0",
     "discord-api-types": "^0.23.1",
-    "discord.js": "^13.2.0",
-    "dotenv": "^10.0.0"
+    "discord.js": "^13.6.0",
+    "dotenv": "^10.0.0",
+    "sequelize": "^6.15.0",
+    "sqlite3": "^5.0.2"
   },
   "devDependencies": {
     "eslint": "^8.0.1"
