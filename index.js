@@ -4,45 +4,23 @@ I have taken code snippets from here to build ToadBot */
 
 // require the necessary discord.js classes
 const fs = require ('fs');
-const { Client, Collection, Intents } = require('discord.js');
-const { token } = require('./config.json');
+const { Client, Collection, Intents, Formatters } = require('discord.js');
+const { token, adminId } = require('./config.json');
 const queue = require('./queue.js');
-const Sequelize = require('sequelize');
+//const Sequelize = require('sequelize');
+const { Op } = require('sequelize');
+const { Users, CurrencyShop } = require('./dbObjects.js');
+const { resourceUsage } = require('process');
+const { currency } = require('./currency.js');
 
 // create a new client instance
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
-// const client = new Discord.Client();
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 
 client.commands = new Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
-//database stuff
-//might need to remove this from this file
-const sequelize = new Sequelize('database', 'user', 'password', {
-	host: 'localhost',
-	dialect: 'sqlite',
-	logging: false,
-	storage: 'database.sqlite',
-});
-
-const Tags = sequelize.define('tags', {
-	name: {
-		type: Sequelize.STRING,
-		unique: true,
-	},
-	description: Sequelize.TEXT,
-	username: Sequelize.STRING,
-	usage_count: {
-		type: Sequelize.INTEGER,
-		defaultValue: 0,
-		allowNull: false,
-	},
-
-});
-//ends here
-
 //set global variables
-global.adminID = 90603115727839232; //this is my discord ID, using for permission reasons
+global.adminID = adminId; //this is my discord ID, using for permission reasons
 
 let coinRecord;
 global.coinRecord = 200;
@@ -61,15 +39,40 @@ for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 	// set a new item in the collection
 	// with the key as the command name and the value as the exported module
+	//console.log(command.data.name);
 	client.commands.set(command.data.name, command);
 }
 
+const activities = ['Looking for Jeffery...', 'Type \"/help" for info']; //rotating activites
+
 // when the client is ready run this once (to prompt it's ready)
-client.once('ready', () => {
+client.once('ready', async () => {
 	console.log('Ready!');//don't need this, just prints to the console showing the bot is running and ready
-	client.user.setActivity('Looking for Jeffery...'/*, {type: 'PLAYING'}*/);//sets the bot activity
-	Tags.sync();//database stuff, creates the table when the bot is ready
+	
+	const updateDelay = 5;
+	let currentIndex = 0;
+
+	setInterval(() => {
+		const activity = activities[currentIndex];
+		client.user.setActivity(activity);
+
+		//update index here
+		currentIndex = currentIndex >= activities.length - 1
+			? 0
+			: currentIndex + 1;
+	}, updateDelay * 1000);
+	
+	//client.user.setActivity('Looking for Jeffery...'/*, {type: 'PLAYING'}*/);//sets the bot activity
+
+	const storedBalances = await Users.findAll();
+	storedBalances.forEach(b => currency.set(b.user_id, b));
 });
+
+client.on('messageCreate', async message => {
+	if (message.author.bot) return;
+	currency.add(message.author.id, 1);
+	//console.log(currency.getBalance(message.author.id));
+})
 
 // once ready set activity
 // client.user.setActivity('Looking for Jeffery...', { type: 'COMPETING' });

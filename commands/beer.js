@@ -18,7 +18,6 @@ module.exports = {
                 .setName('list')
                 .setDescription('See the list of beers')),
 	async execute(interaction) {
-		// await interaction.reply(`The current coin record is: ${global.coinRecord}`);
         if(interaction.options.getSubcommand() === 'get' )
         {
             if( global.beer.length === 0 )
