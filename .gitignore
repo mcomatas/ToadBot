@@ -1,0 +1,10 @@
+node_modules/
+config.json
+randomFiller.txt
+commands/help.js
+commands/meleedoc.js
+database.sqlite
+commands/bbc.js
+horrorLandToad.png
+commands/songs.js
+commands/tags.js
