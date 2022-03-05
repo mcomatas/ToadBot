@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-node_modules/
 config.json
 randomFiller.txt
 commands/help.js
@@ -7,16 +5,4 @@ commands/meleedoc.js
 database.sqlite
 commands/bbc.js
 horrorLandToad.png
-commands/songs.js
-=======
-node_modules/
-config.json
-randomFiller.txt
-commands/help.js
-commands/meleedoc.js
-database.sqlite
-commands/bbc.js
-horrorLandToad.png
-commands/songs.js
->>>>>>> 8610b6124e1c65ebe1675597f75b5cacff2a55ad
 commands/tags.js
