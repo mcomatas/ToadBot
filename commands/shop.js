@@ -29,8 +29,8 @@ module.exports = {
                 .setName('buy')
                 .setDescription('Buy an item from the shop')
                 .addStringOption(option => option.setName('category').setDescription('Pick an item to buy').setRequired(true)
-                .addChoice('Mushroom', 'Mushroom')
-                .addChoice('Duel Glove', 'Duel Glove')))
+                .addChoice('Duel Glove', 'Duel Glove')
+                .addChoice('Magic Lamp', 'Magic Lamp')))
         .addSubcommand( subcommand =>
             subcommand
                 .setName('items')

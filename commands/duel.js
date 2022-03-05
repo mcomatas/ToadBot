@@ -31,7 +31,7 @@ module.exports = {
         //console.log( Reflect.get(userItem.dataValues, amount));
         //console.log( userItem.dataValues.amount );
         
-        if( userItem.dataValues.amount <= 0 )
+        if( userItem.dataValues.amount <= 0 )//if the user has less than or equal to 0 duel gloves they can't use the command
         {
             await interaction.reply( 'This guy tried to duel without a Duel Glove! What an idiot! :goobs: :JLUL:' );
         }
