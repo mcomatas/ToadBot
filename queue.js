@@ -36,8 +36,21 @@ class Queue {
         }
         else
         {
-            return "The queue is empty";
+            //return "The queue is empty";
+            return null;
             // could return undefined?
+        }
+    }
+
+    isDuplicate( x )
+    {
+        if( this.elements.some( element => element === x ) )
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 

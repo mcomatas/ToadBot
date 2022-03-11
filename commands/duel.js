@@ -66,8 +66,9 @@ module.exports = {
                         await interaction.followUp(`The winner is ${duelee}!`);
                     }
                 }, 3000 );
+
+                await user.deleteItem(item);
             }
-            await user.deleteItem(item);
         }
     },
 };
