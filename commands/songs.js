@@ -13,35 +13,32 @@ const {
 
 async function playSong( connection )
 {
-    //const stream = ytdl( global.songQueue.peek(), { filter: 'audioonly' });
     const stream = await play.stream( global.songQueue.peek() );
     const resource = createAudioResource(stream.stream, { inputType: stream.type });
-    //const player = createAudioPlayer();
                 
     player.play(resource);
     connection.subscribe(player);
-
-    player.on('error', (err) => { console.log(err) } );
-    player.on(AudioPlayerStatus.Idle, () => 
-    {
-        global.songQueue.dequeue();
-
-        if( global.songQueue.isEmpty() )
-        {
-            connection.disconnect();
-        }
-        else
-        {
-            setTimeout( () => {
-                playSong( connection );
-            }, 1000 );
-        }
-    } );
-
 }
 
 const player = createAudioPlayer(); //audio player, this is global in songs to do things like pause, unpause, etc.
-var connection;
+let connection; //the voice connection, needs to be global so the player.on event can access it and playSong again
+
+player.on(AudioPlayerStatus.Idle, () =>
+{
+    global.songQueue.dequeue();
+    
+    if( global.songQueue.isEmpty() )
+    {
+        connection.disconnect();
+    }
+    else
+    {
+        setTimeout( () =>
+        {
+            playSong( connection );
+        }, 1000 );
+    }
+});
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -74,8 +71,6 @@ module.exports = {
                 .setDescription('Empties the song queue.')),
     async execute(interaction) {
         
-        // let VOICE_CHANNEL = '660535406382678020'
-
         if(interaction.options.getSubcommand() === 'queue')
         {
             
@@ -88,10 +83,8 @@ module.exports = {
             else 
             { 
                 var videoTitle;
-                //await ytdl.getInfo( youtubeLink ).then(info => { videoTitle = info.videoDetails.title } );
-                yt_info = await play.video_info(youtubeLink);
+                yt_info =  await play.video_info(youtubeLink);
                 videoTitle = yt_info.video_details.title;
-                //console.log(yt_info.video_details.title);
                 
                 global.songQueue.enqueue( youtubeLink );
                     
@@ -110,7 +103,6 @@ module.exports = {
                     playSong( connection );
                     await interaction.reply(`Now playing ${videoTitle}`)
                 }
-                //await interaction.reply( "working on it." );
             }  
         }
         else if( interaction.options.getSubcommand() === 'playing' )
@@ -122,20 +114,7 @@ module.exports = {
         }
         else if( interaction.options.getSubcommand() === 'skip' )
         {
-            //player.pause();
-            player.stop();
-            console.log( global.songQueue );
-            /*global.songQueue.dequeue();
-            if( global.songQueue.isEmpty() )
-            {
-                connection.disconnect();
-            }
-            else
-            {
-                setTimeout( () => {
-                    playSong( connection );
-                }, 1000 );
-            }*/
+            player.stop(); //stop the audio player to make it go into the Idle status, and trigger the player.on event
             await interaction.reply( "Skipped song" );
         }
         else if( interaction.options.getSubcommand() === 'pause' )
@@ -155,3 +134,11 @@ module.exports = {
         }
     },
 }
+
+
+player.addListener('stateChange', (oldOne, newOne) => {
+    if( oldOne =='playing' && newOne.status == 'idle' )
+    {
+        console.log( 'The song finished' );
+    }
+});
