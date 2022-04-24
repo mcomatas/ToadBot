@@ -32,7 +32,7 @@ module.exports = {
         }
         else if( interaction.options.getSubcommand() === 'codes' )
         {
-            await interaction.reply('Slippi codes:\nMichael: TALM#723\nWilliam: SMIL#255\nChristopher: KRUS#702\nErick: Doesn\'t have one :(');
+            await interaction.reply('Slippi codes:\nMichael: TALM#723\nWilliam: SMIL#255\nChristopher: KRUS#702\nErick: TPP#558');
         }
     },
 }
